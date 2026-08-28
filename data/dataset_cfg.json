@@ -1,0 +1,31 @@
+{
+ "features": [
+  "urban",
+  "elec_access",
+  "mobile",
+  "broadband",
+  "literacy",
+  "physicians",
+  "elec_gen_pc",
+  "edu_f",
+  "mat_leave_days",
+  "pat_leave_days",
+  "rail_km",
+  "nonagri_empl",
+  "gdppc2000",
+  "manuf_pc2000"
+ ],
+ "log_feats": [
+  "gdppc2000",
+  "manuf_pc2000",
+  "elec_gen_pc",
+  "mobile",
+  "broadband"
+ ],
+ "n_train": 4357,
+ "n_valid": 1245,
+ "n_test": 623,
+ "n_time_tr": 5063,
+ "n_time_te": 1162,
+ "n_inputs": 28
+}

@@ -1,0 +1,111 @@
+{
+ "full_val_r2": 0.6083974242210388,
+ "importance": {
+  "edu_f": 0.4750511050224304,
+  "urban": 0.3381348252296448,
+  "gdppc2000": 0.26682764291763306,
+  "physicians": 0.21808701753616333,
+  "manuf_pc2000": 0.191716730594635,
+  "mobile": 0.1401602029800415,
+  "mat_leave_days": 0.12621265649795532,
+  "nonagri_empl": 0.12452369928359985,
+  "elec_gen_pc": 0.10694056749343872,
+  "rail_pc": 0.10173165798187256,
+  "broadband": 0.06475180387496948,
+  "pat_leave_days": 0.04822462797164917,
+  "elec_access": 0.037899792194366455,
+  "literacy": 0.030641496181488037
+ },
+ "greedy_path": [
+  [
+   "mat_leave_days",
+   -0.2955,
+   -0.4858
+  ],
+  [
+   "elec_access",
+   -0.0289,
+   -0.0476
+  ],
+  [
+   "pat_leave_days",
+   0.0915,
+   0.1504
+  ],
+  [
+   "rail_pc",
+   0.1754,
+   0.2884
+  ],
+  [
+   "urban",
+   0.2519,
+   0.414
+  ],
+  [
+   "broadband",
+   0.3009,
+   0.4947
+  ],
+  [
+   "edu_f",
+   0.3535,
+   0.581
+  ],
+  [
+   "physicians",
+   0.3722,
+   0.6118
+  ],
+  [
+   "manuf_pc2000",
+   0.412,
+   0.6773
+  ],
+  [
+   "gdppc2000",
+   0.4591,
+   0.7546
+  ],
+  [
+   "elec_gen_pc",
+   0.5022,
+   0.8255
+  ],
+  [
+   "literacy",
+   0.5327,
+   0.8756
+  ],
+  [
+   "nonagri_empl",
+   0.5522,
+   0.9077
+  ],
+  [
+   "mobile",
+   0.6084,
+   1.0
+  ]
+ ],
+ "selected": [
+  "urban",
+  "elec_access",
+  "mobile",
+  "broadband",
+  "literacy",
+  "physicians",
+  "elec_gen_pc",
+  "edu_f",
+  "mat_leave_days",
+  "pat_leave_days",
+  "nonagri_empl",
+  "gdppc2000",
+  "manuf_pc2000",
+  "rail_pc"
+ ],
+ "test_r2": 0.6222567558288574,
+ "test_full_r2": 0.6222567558288574,
+ "test_mae": 0.13856008648872375,
+ "test_succ25": 0.8591065292096219
+}

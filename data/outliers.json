@@ -1,0 +1,90 @@
+[
+ {
+  "iso3": "UZB",
+  "var": "gdppc",
+  "year": 2024,
+  "old": 4477.90745486742,
+  "new": 4281.20542121225,
+  "reason": "outlier (isolated spike, |z|>5)"
+ },
+ {
+  "iso3": "ITA",
+  "var": "physicians",
+  "year": 2002,
+  "old": 9.344,
+  "new": 3.5455,
+  "reason": "outlier (isolated spike, |z|>5)"
+ },
+ {
+  "iso3": "MDG",
+  "var": "physicians",
+  "year": 1995,
+  "old": 0.272,
+  "new": 0.1743,
+  "reason": "outlier (isolated spike, |z|>5)"
+ },
+ {
+  "iso3": "BFA",
+  "var": "elec_gen_pc",
+  "year": 2018,
+  "old": 91.49494,
+  "new": 66.3129875,
+  "reason": "outlier (isolated spike, |z|>5)"
+ },
+ {
+  "iso3": "CIV",
+  "var": "elec_gen_pc",
+  "year": 2022,
+  "old": 414.8708,
+  "new": 367.6214,
+  "reason": "outlier (isolated spike, |z|>5)"
+ },
+ {
+  "iso3": "IND",
+  "var": "rail_km",
+  "year": 2018,
+  "old": 69249.0,
+  "new": 67391.035,
+  "reason": "outlier (isolated spike, |z|>5)"
+ },
+ {
+  "iso3": "MYS",
+  "var": "rail_km",
+  "year": 1996,
+  "old": 2227.0,
+  "new": 1706.0,
+  "reason": "outlier (isolated spike, |z|>5)"
+ },
+ {
+  "iso3": "ARG",
+  "var": "rail_pc",
+  "year": 2005,
+  "old": 8.032273931650193e-05,
+  "new": 0.00034041595205102,
+  "reason": "outlier (isolated spike, |z|>5)"
+ },
+ {
+  "iso3": "ITA",
+  "var": "phys_pc",
+  "year": 2002,
+  "old": 9.344,
+  "new": 3.5455,
+  "reason": "outlier (isolated spike, |z|>5)"
+ },
+ {
+  "iso3": "MDG",
+  "var": "phys_pc",
+  "year": 1995,
+  "old": 0.272,
+  "new": 0.1743,
+  "reason": "outlier (isolated spike, |z|>5)"
+ },
+ {
+  "iso3": "UZB",
+  "var": "gdppc2000",
+  "year": 2024,
+  "old": 3346.2521106254303,
+  "new": 3199.260552198412,
+  "reason": "outlier (isolated spike, |z|>5)"
+ }
+]

@@ -1,0 +1,86 @@
+{
+ "pop": {
+  "nonnull": 6225,
+  "share": 1.0
+ },
+ "tfr": {
+  "nonnull": 6225,
+  "share": 1.0
+ },
+ "urban": {
+  "nonnull": 5740,
+  "share": 0.9221
+ },
+ "gdppc": {
+  "nonnull": 5259,
+  "share": 0.8448
+ },
+ "manuf_pc": {
+  "nonnull": 3619,
+  "share": 0.5814
+ },
+ "elec_access": {
+  "nonnull": 2960,
+  "share": 0.4755
+ },
+ "mobile": {
+  "nonnull": 6225,
+  "share": 1.0
+ },
+ "broadband": {
+  "nonnull": 6225,
+  "share": 1.0
+ },
+ "agri_empl": {
+  "nonnull": 3198,
+  "share": 0.5137
+ },
+ "literacy": {
+  "nonnull": 2678,
+  "share": 0.4302
+ },
+ "physicians": {
+  "nonnull": 5348,
+  "share": 0.8591
+ },
+ "elec_gen_pc": {
+  "nonnull": 3240,
+  "share": 0.5205
+ },
+ "edu_f": {
+  "nonnull": 5183,
+  "share": 0.8326
+ },
+ "mat_leave_days": {
+  "nonnull": 4266,
+  "share": 0.6853
+ },
+ "pat_leave_days": {
+  "nonnull": 4266,
+  "share": 0.6853
+ },
+ "rail_km": {
+  "nonnull": 1994,
+  "share": 0.3203
+ },
+ "rail_pc": {
+  "nonnull": 1216,
+  "share": 0.1953
+ },
+ "nonagri_empl": {
+  "nonnull": 3198,
+  "share": 0.5137
+ },
+ "phys_pc": {
+  "nonnull": 5348,
+  "share": 0.8591
+ },
+ "gdppc2000": {
+  "nonnull": 5259,
+  "share": 0.8448
+ },
+ "manuf_pc2000": {
+  "nonnull": 3619,
+  "share": 0.5814
+ }
+}
