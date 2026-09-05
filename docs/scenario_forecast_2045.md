@@ -227,3 +227,160 @@ python src/12_predict_scenario.py --iso3 COD --year 2045 \
 Panel values used above: `literacy` 68.3258 (India 2010), `elec_gen_pc` 753.039
 (India 2010), `nonagri_empl` 48.944 (India 2010); deflator ratio
 69.011230/119.027387 = 0.5798 (US GDP deflator 2000/2024, base 2020 = 100).
+
+---
+
+# Round 2 — Expanded scenarios (incl. manufacturing, urbanization, electricity access)
+
+Second request (2026-09-05): the same three countries, now also asked to reach
+India-2010 **manufacturing value added per capita** (and, for Niger/DRC,
+non-agricultural employment), plus higher GDP targets and **absolute** urbanization
+and electricity-access conditions. Predicted with the same model and method as Round 1.
+
+## 8. Round-2 scenario definitions
+
+| # | Country | India-2010 targets | Additional conditions by 2045 |
+|---|---|---|---|
+| 1 | Nigeria | literacy, manuf. p.c., electricity gen. p.c. | GDP 3,000 USD-2024; urban 70%; elec. access 90%+ |
+| 2 | Niger | literacy, manuf. p.c., non-agri empl., electricity gen. p.c. | GDP 2,500 USD-2024; urban 30%; elec. access 90%+ |
+| 3 | DR Congo | literacy, manuf. p.c., non-agri empl., electricity gen. p.c. | GDP 2,500 USD-2024; urban 60%; elec. access 90%+ |
+
+### 8.1 Target values
+
+India-2010 benchmark added in this round: **`manuf_pc2000` = 141.48** (manufacturing
+value added per capita, 2000-equivalent USD; India's 2024 value is 274.9).
+
+GDP conversion (2024 current USD → constant-2000-equivalent USD, ×0.5798, same
+deflator chain as Round 1): Nigeria 3,000 → **1,739.4**; Niger/DRC 2,500 → **1,449.5**.
+
+| Condition | NGA (2024 → target) | NER (2024 → target) | COD (2024 → target) |
+|---|---|---|---|
+| Literacy (%) | 70.41 → 68.33 (met) | 35.61 → 68.33 | 68.50 → 68.33 (met) |
+| Manuf. p.c. (2000-USD) | 138.1 → 141.5 (met) | 31.3 → 141.5 | 61.7 → 141.5 |
+| Electricity gen. p.c. (kWh) | 161.4 → 753.0 | 35.1 → 753.0 | 145.7 → 753.0 |
+| Non-agricultural empl. (%) | — | 26.5 → 48.9 | 41.1 → 48.9 |
+| GDP p.c. (2000-USD) | 1,737.1 → 1,739.4 (met) | 440.2 → 1,449.5 | 414.1 → 1,449.5 |
+| Urbanization (%) | 63.0 → 70.0 | 18.0 → 30.0 | 44.7 → 60.0 |
+| Electricity access (%) | 62.5 → 90.0 | 21.3 → 90.0 | 22.5 → 90.0 |
+
+As in Round 1, Nigeria's GDP condition is non-binding after deflation (its real GDP
+per capita already stands at the converted level), and its literacy/manufacturing
+targets are already satisfied; Niger and DRC face large jumps on every dimension.
+
+## 9. Round-2 results
+
+### 9.1 Headline TFR(2045)
+
+| Scenario | TFR 2024 | **TFR 2045 (scenario)** | Reduction | Zero-change baseline 2045 | Round-1 result (same countries, fewer conditions) |
+|---|---|---|---|---|---|
+| 1. Nigeria | 4.382 | **2.91** | −1.47 (−33%) | 2.67 | 2.80 |
+| 2. Niger | 5.935 | **4.47** | −1.47 (−25%) | 4.15 | 3.26 |
+| 3. DR Congo | 5.981 | **5.06** | −0.92 (−15%) | 5.17 | 4.91 |
+
+Chained TFR paths (2024 → 2029 → 2034 → 2039 → 2044 → 2045):
+
+- **Nigeria:** 4.382 → 4.008 → 3.651 → 3.312 → 2.986 → **2.914**
+- **Niger:** 5.935 → 5.445 → 4.980 → 4.667 → 4.538 → **4.470**
+- **DR Congo:** 5.981 → 5.709 → 5.442 → 5.225 → 5.070 → **5.057**
+
+Note the striking pattern: adding the manufacturing / urbanization / electricity-
+access conditions does **not** lower the predicted TFR relative to Round 1 — for Niger
+and DR Congo the forecast is *higher* (4.47 vs 3.26; 5.06 vs 4.91), and Nigeria's is
+similar (2.91 vs 2.80). Section 10 explains why.
+
+### 9.2 Marginal contributions of each condition (ΔTFR over 2024-2045)
+
+| Condition | Nigeria | Niger | DR Congo |
+|---|---|---|---|
+| Zero-change baseline (endogenous path) | −1.711 | −1.785 | −0.810 |
+| `literacy` → 68.3% | +0.014 | **−0.227** | +0.000 |
+| `manuf_pc2000` → 141.5 | +0.001 | +0.477 | +0.163 |
+| `nonagri_empl` → 48.9% | — | +0.038 | +0.073 |
+| `elec_gen_pc` → 753 kWh | +0.323 | +0.321 | +0.211 |
+| `gdppc2000` → target | −0.000 | **−0.218** | +0.247 |
+| `urban` → target | +0.016 | +0.104 | **−0.125** |
+| `elec_access` → 90% | +0.093 | +0.903 | +0.269 |
+| Interaction residual | −0.204 | −1.080 | −0.952 |
+| **Total ΔTFR** | **−1.468** | **−1.466** | **−0.924** |
+
+Positive values offset part of the decline. For Niger, the reductions come from
+literacy (−0.23) and GDP (−0.22); for DR Congo only urbanization (−0.13) clearly
+reduces TFR while GDP's marginal contribution flips sign relative to Round 1 (+0.25
+here vs −0.41 there). Electricity-access, generation and manufacturing show *positive*
+offsets in every country when applied simultaneously.
+
+## 10. Interpretation
+
+**Headline answers: Nigeria TFR ≈ 2.9; Niger TFR ≈ 4.5; DR Congo TFR ≈ 5.1 by 2045.**
+Nigeria is again dominated by its endogenous convergence path (2.67 baseline), because
+after conversion almost every condition is already met or near-met — only
+urbanization 63→70, access 62.5→90 and electricity generation 161→753 kWh are genuine
+new developments, and the model attributes little fertility change to them at
+Nigeria's current TFR level. Niger and DR Congo, where all conditions are real leaps,
+still land far higher than their Round-1 forecasts. Three points explain this:
+
+**1. In the training record, "infrastructure catch-up" at high fertility did not
+reduce fertility.** The ΔTFR model was trained on historical 5-year windows
+(1950-2024). Countries that expanded electricity generation, access or manufacturing
+rapidly *while TFR was still 5-6* (energy booms, the 1950s-60s, much of 2000s-2020s
+sub-Saharan Africa) typically had flat or slowly-declining fertility; in the data,
+fertility fell when education, income and urbanization moved *together* with
+infrastructure. The model therefore associates fast electrification at a high current
+TFR with little — even slightly positive — ΔTFR, and assigns the decline to the
+education/income/urban channels instead. This is a statistical regularity of the
+historical sample, not a policy claim that electricity "raises" fertility.
+
+**2. Marginal effects are state-dependent and interact strongly.** Because the
+network is nonlinear (11M parameters), the marginal sign of one feature can flip with
+the rest of the state: DR Congo's GDP gain reduced TFR by −0.41 in Round 1 (fewer
+simultaneous changes) but offsets +0.25 in Round 2. Isolated diagnostics confirm the
+interactions drive the result: setting Niger's electricity access to 90% *alone*
+changes TFR(2045) by only +0.03 (4.183 vs 4.150 baseline), yet the same condition
+shows +0.90 in the full seven-condition scenario, with an interaction residual of
+−1.08 absorbing most of the difference. Large simultaneous jumps from a low base have
+few in-sample 5-year analogues, so per-condition decompositions are unreliable there;
+the chained forecasts in §9.1 are the meaningful outputs.
+
+**3. Education and income remain the strongest levers, and they are capped or
+missing here.** Literacy is the main explicit education channel that moves (Niger
+−0.23); female mean schooling (`edu_f`, Barro-Lee) — the level model's dominant
+determinant — is *not* part of any scenario condition and is treated as unknown by the
+model for all three countries because the series ends before 2024. Urbanization is
+only raised to 30% (Niger) / 60% (DRC) / 70% (Nigeria) — modest levels that the model
+does not consider transitional by themselves.
+
+**Caveats.** (i) Uncertainty band ≈ ±0.2-0.3 births per scenario from chained
+per-step error (MAE ≈ 0.1), before structural assumptions. (ii) Ceteris paribus:
+physicians, female schooling, mobile/broadband, leave policies stay at 2024 levels.
+(iii) The 90%-access condition would realistically be reached well before 2045 by
+Niger/DRC (they start at ~21%); the linear ramp spreads it over 21 years, and the
+final year is linearly scaled. (iv) Interactions make the marginal decomposition
+illustrative only — the composition percentages printed by the script should not be
+read as causal shares for these extreme scenarios.
+
+**Practical reading for scenario design.** In this model, fertility responds to
+education, income and (for COD) urbanization; energy and manufacturing expansions
+matter mostly as correlates of those. A scenario that wants a lower 2045 TFR would
+need to condition on female schooling (e.g., India-2010 `edu_f` = 5.26 years),
+steeper urbanization or higher income — not on electricity metrics alone.
+
+## 11. Reproduction (Round 2)
+
+```bash
+# Nigeria: + manuf, GDP 3,000 USD-2024 (=1,739.4), urban 70, elec access 90
+python src/12_predict_scenario.py --iso3 NGA --year 2045 \
+  --set '{"literacy": 68.326, "manuf_pc2000": 141.48, "elec_gen_pc": 753.04, \
+          "gdppc2000": 1739.4, "urban": 70.0, "elec_access": 90.0}'
+
+# Niger: + manuf, non-agri empl, GDP 2,500 USD-2024 (=1,449.5), urban 30, access 90
+python src/12_predict_scenario.py --iso3 NER --year 2045 \
+  --set '{"literacy": 68.326, "manuf_pc2000": 141.48, "nonagri_empl": 48.944, \
+          "elec_gen_pc": 753.04, "gdppc2000": 1449.5, "urban": 30.0, "elec_access": 90.0}'
+
+# DR Congo: same as Niger but urban 60
+python src/12_predict_scenario.py --iso3 COD --year 2045 \
+  --set '{"literacy": 68.326, "manuf_pc2000": 141.48, "nonagri_empl": 48.944, \
+          "elec_gen_pc": 753.04, "gdppc2000": 1449.5, "urban": 60.0, "elec_access": 90.0}'
+```
+
+New India-2010 benchmark: `manuf_pc2000` 141.481. Other conversions as in §7.
