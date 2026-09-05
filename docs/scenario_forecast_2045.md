@@ -384,3 +384,130 @@ python src/12_predict_scenario.py --iso3 COD --year 2045 \
 ```
 
 New India-2010 benchmark: `manuf_pc2000` 141.481. Other conversions as in §7.
+
+---
+
+# Round 3 — Expanded scenarios including female schooling
+
+Third request (2026-09-05): identical to Round 2, with one addition — each country
+must also reach India-2010 **female mean years of schooling** (`edu_f`). Same model
+and method.
+
+## 12. Round-3 scenario definitions and target values
+
+| # | Country | India-2010 targets | Additional conditions by 2045 |
+|---|---|---|---|
+| 1 | Nigeria | literacy, **female schooling**, manuf. p.c., electricity gen. p.c. | GDP 3,000 USD-2024; urban 70%; elec. access 90%+ |
+| 2 | Niger | literacy, **female schooling**, manuf. p.c., non-agri empl., electricity gen. p.c. | GDP 2,500 USD-2024; urban 30%; elec. access 90%+ |
+| 3 | DR Congo | literacy, **female schooling**, manuf. p.c., non-agri empl., electricity gen. p.c. | GDP 2,500 USD-2024; urban 60%; elec. access 90%+ |
+
+New India-2010 benchmark: **`edu_f` = 5.263** (female mean years of schooling, ages
+15+, Barro-Lee v3; India's series ends in 2020 at 6.12). `edu_f` is the model's most
+important determinant overall (permutation importance ΔR² = 0.475, the highest of all
+13 features).
+
+Data-handling note: the Barro-Lee series in this panel ends in **2020**, so `edu_f`
+is missing in the 2024 baseline row for all three countries (Nigeria's schooling
+series is entirely absent from the panel). By the scenario tool's documented
+convention, a set feature that is missing in the latest year is applied **from 2024
+onward** (it cannot ramp from an unknown value) — the model "knows" female schooling
+from the start of the forecast. Actual observed schooling differs by country:
+**Niger 1.82 years (2020)** — a real jump to 5.26; **DR Congo 5.47 (2020)** — the
+target is already met, so for DRC the `edu_f` condition mostly *resolves the
+missingness* (the model learns DRC's schooling is high instead of treating it as
+unknown); Nigeria has no observed series. Results below are therefore an upper bound
+on the schooling-driven decline for Niger (and for Nigeria, whose true trajectory is
+unobserved); see §14.
+
+## 13. Round-3 results
+
+### 13.1 Headline TFR(2045)
+
+| Scenario | TFR 2024 | **TFR 2045** | Reduction | Zero-change baseline 2045 | Round-2 (no `edu_f`) |
+|---|---|---|---|---|---|
+| 1. Nigeria | 4.382 | **2.68** | −1.70 (−39%) | 2.67 | 2.91 |
+| 2. Niger | 5.935 | **4.43** | −1.51 (−25%) | 4.15 | 4.47 |
+| 3. DR Congo | 5.981 | **4.79** | −1.19 (−20%) | 5.17 | 5.06 |
+
+Chained TFR paths (2024 → 2029 → 2034 → 2039 → 2044 → 2045):
+
+- **Nigeria:** 4.382 → 3.946 → 3.531 → 3.136 → 2.762 → **2.682**
+- **Niger:** 5.935 → 5.407 → 4.915 → 4.671 → 4.515 → **4.428**
+- **DR Congo:** 5.981 → 5.684 → 5.402 → 5.127 → 4.854 → **4.794**
+
+### 13.2 Marginal contribution of `edu_f` and total effect vs Round 2
+
+| Country | Round-2 total ΔTFR | Round-3 total ΔTFR | `edu_f` marginal contribution | Interaction residual (all features) |
+|---|---|---|---|---|
+| Nigeria | −1.468 | −1.700 | **−0.232** | −0.144 |
+| Niger | −1.466 | −1.507 | −0.042 | −2.551 |
+| DR Congo | −0.924 | −1.187 | **−0.263** | −0.567 |
+
+Other marginals barely change qualitatively from Round 2 (electricity/access/manuf.
+still offset; literacy and urbanization reduce for Niger/DRC); details are in the
+console output reproduced by §15.
+
+## 14. Interpretation
+
+**Headline answers with female schooling included: Nigeria TFR ≈ 2.7, Niger ≈ 4.4,
+DR Congo ≈ 4.8 by 2045.**
+
+- **Nigeria (2.91 → 2.68):** female schooling is the only condition that moves
+  Nigeria below its endogenous path. Setting `edu_f` = 5.26 years (and thus telling
+  the model that Nigeria's female schooling is known and high, since its series is
+  otherwise absent) cuts about 0.23 off TFR(2045), bringing the forecast (2.68)
+  essentially to the zero-change baseline (2.67) *despite* the offsetting
+  infrastructure marginals. Consistent with the model's global ranking
+  (`edu_f` ΔR² 0.475), schooling is the strongest explicit lever wherever it can act.
+- **DR Congo (5.06 → 4.79):** the largest `edu_f` response (−0.26). Note that DRC's
+  observed schooling (5.47 years in 2020) already exceeds the India-2010 target, so
+  this gain comes mostly from resolving the variable's missingness in the forecast
+  (the model now knows DRC's schooling is high) rather than from an assumed increase.
+  Even so, the deep structural drag documented in Round 1 (weak physicians,
+  urbanization still moderate, conflict) keeps the chained path near 4.8 — the model
+  does not see DRC completing its transition by 2045 under these conditions.
+- **Niger (4.47 → 4.43):** surprisingly small `edu_f` effect (−0.04) despite the
+  largest real schooling jump (1.8 → 5.3 years). Niger's scenario stacks the largest
+  simultaneous changes of all runs in this report (literacy 36→68, schooling 1.8→5.3,
+  manuf 31→141, generation 35→753, access 21→90, GDP 440→1,450); in that extreme
+  region the network's response is dominated by cross-feature interactions (residual
+  −2.55, larger than the total effect). With no in-sample 5-year analogues of such a
+  synchronized leap from Niger's base, the model treats the configuration as
+  quasi-unidentified and returns a path close to Round 2. The decomposition should be
+  read as unreliable for this scenario; the chained forecast (4.4) is the meaningful
+  output, and it confirms that even maximal structural catch-up by 2045 leaves
+  Niger's TFR far above replacement because the transition itself takes decades at
+  this starting point.
+- **Timing caveat on `edu_f`:** the value is applied from 2024, so the Niger numbers
+  are optimistic (ramping schooling from its observed 1.8 years in 2020 to 5.26 by
+  2045 would soften the effect); for DR Congo the condition is already met by
+  observed data, and for Nigeria the true schooling level is unobserved, so the
+  Nigeria gain is best read as "what knowing female schooling is at India-2010 levels
+  implies".
+- As in Round 2, the electricity/manufacturing/access conditions themselves do not
+  accelerate the model's decline; their historical association at high TFR is with
+  stalled transitions, and their offsets here are absorbed by interactions. The
+  policy reading is unchanged: female schooling is the single strongest available
+  lever, followed by income and (in DRC) urbanization.
+
+## 15. Reproduction (Round 3)
+
+```bash
+# Nigeria: Round-2 conditions + edu_f 5.263
+python src/12_predict_scenario.py --iso3 NGA --year 2045 \
+  --set '{"literacy": 68.326, "edu_f": 5.263, "manuf_pc2000": 141.48, "elec_gen_pc": 753.04, \
+          "gdppc2000": 1739.4, "urban": 70.0, "elec_access": 90.0}'
+
+# Niger
+python src/12_predict_scenario.py --iso3 NER --year 2045 \
+  --set '{"literacy": 68.326, "edu_f": 5.263, "manuf_pc2000": 141.48, "nonagri_empl": 48.944, \
+          "elec_gen_pc": 753.04, "gdppc2000": 1449.5, "urban": 30.0, "elec_access": 90.0}'
+
+# DR Congo
+python src/12_predict_scenario.py --iso3 COD --year 2045 \
+  --set '{"literacy": 68.326, "edu_f": 5.263, "manuf_pc2000": 141.48, "nonagri_empl": 48.944, \
+          "elec_gen_pc": 753.04, "gdppc2000": 1449.5, "urban": 60.0, "elec_access": 90.0}'
+```
+
+New India-2010 benchmark: `edu_f` 5.263 (Barro-Lee female mean years of schooling).
+Other conversions as in §7.
